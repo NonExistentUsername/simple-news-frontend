@@ -1,9 +1,9 @@
 import { Box, Container, CssBaseline } from '@material-ui/core';
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import React from "react";
+import AuthForm from './components/AuthForm';
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-import Register from './components/Register';
 
 // Define the default theme for the app
 const theme = createTheme({
@@ -69,7 +69,7 @@ function App() {
       <div style={styles.root}>
         <Header />
         <Container component="main" style={styles.content}>
-          <Register />
+          <AuthForm />
         </Container>
         <Box mt="auto">
           <Footer />
