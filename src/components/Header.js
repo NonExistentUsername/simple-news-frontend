@@ -11,7 +11,7 @@ import React from "react";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
-    zIndex: theme.zIndex.drawer + 1,
+    position: "relative",
   },
   logoWrapper: {
     display: "inline-flex",
@@ -55,7 +55,7 @@ function Header() {
   };
 
   return (
-    <AppBar position="fixed" className={classes.appBar}>
+    <AppBar className={classes.appBar}>
       <Toolbar>
         <div className={classes.logoWrapper}>
           <img

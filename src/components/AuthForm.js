@@ -9,10 +9,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 'calc(100vh - 64px - 56px)',
-    [theme.breakpoints.down('sm')]: {
-      height: 'calc(100vh - 56px - 48px)',
-    },
   },
   card: {
     maxWidth: 600,

@@ -1,30 +1,29 @@
 import { Box, Container, CssBaseline } from '@material-ui/core';
-import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+import { ThemeProvider, createTheme } from "@material-ui/core/styles";
 import React from "react";
 import AuthForm from './components/AuthForm';
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 
-// Define the default theme for the app
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#2196f3", // Felix the cat's blue color
+      main: "#2196f3",
     },
     secondary: {
-      main: "#ff5722", // A secondary color
+      main: "#ff5722",
     },
     text: {
-      primary: "#333", // Primary text color
-      secondary: "#777", // Secondary text color
+      primary: "#333",
+      secondary: "#777",
     },
     background: {
-      default: "#f5f5f5", // Default background color
+      default: "#f5f5f5",
     },
   },
   typography: {
     fontFamily: ["Arial", "sans-serif"].join(","),
-    fontSize: 16, // Default font size
+    fontSize: 16,
     h1: {
       fontWeight: "bold",
       fontSize: "3rem",
@@ -46,7 +45,7 @@ const theme = createTheme({
     },
   },
   shape: {
-    borderRadius: 8, // Default border radius
+    borderRadius: 8,
   },
 });
 
@@ -61,7 +60,6 @@ const styles = {
   },
 };
 
-// App component that incorporates Header, Content, and Footer components
 function App() {
   return (
     <ThemeProvider theme={theme}>

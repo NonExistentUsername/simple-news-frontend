@@ -99,13 +99,6 @@ export default function Register() {
           >
             Sign Up
           </Button>
-          <Grid container justifyContent="center">
-            <Grid item>
-              <Typography>
-                Already have an account? <a href="#">Sign in</a>
-              </Typography>
-            </Grid>
-          </Grid>
         </form>
       </div>
       <Box mt={5}>

@@ -100,7 +100,13 @@ const Login = () => {
           </Grid>
         </form>
       </div>
-      <Box mt={8}>{/* Footer goes here */}</Box>
+      <Box mt={5}>
+        <Typography variant="body2" color="textSecondary" align="center">
+          {"Felix News © "}
+          {new Date().getFullYear()}
+          {"."}
+        </Typography>
+      </Box>
     </Container>
   );
 };
