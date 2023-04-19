@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Header() {
+function Header({ user }) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -80,7 +80,7 @@ function Header() {
             color="inherit"
             style={{ padding: 0 }}
           >
-            <Avatar className={classes.avatar}>F</Avatar>
+            {user.is_authorized ? <Avatar className={classes.avatar}>F</Avatar> : null}
           </IconButton>
           <Menu
             id="menu-appbar"
