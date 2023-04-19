@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AuthForm = () => {
+const AuthForm = ({apiManager}) => {
   const classes = useStyles();
   const [isRegister, setIsRegister] = useState(false);
 
@@ -34,7 +34,7 @@ const AuthForm = () => {
       <Card className={classes.card}>
         <CardHeader title="Welcome to Felix News" />
         <CardContent>
-          {isRegister ? <Register /> : <Login />}
+          {isRegister ? <Register apiManager={apiManager} /> : <Login />}
         </CardContent>
         <CardActions>
           <Typography variant="body2">

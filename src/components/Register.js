@@ -32,8 +32,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Register() {
+export default function Register({apiManager}) {
   const classes = useStyles();
+
+  const handleApiCallResult = (response) => {
+    console.log(response)
+  }
+
+  const submitForm = (event) => {
+    event.preventDefault();
+
+    console.log(event.target.password.value)
+
+    apiManager.register(event.target.username.value, null, event.target.password.value, handleApiCallResult)
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -44,7 +56,7 @@ export default function Register() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={submitForm} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
