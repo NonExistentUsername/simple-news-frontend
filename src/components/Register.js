@@ -10,7 +10,6 @@ import {
   Typography
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import React from "react";
 
 const useStyles = makeStyles((theme) => ({
@@ -22,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: "100%", // Fix IE 11 issue.
@@ -39,9 +38,9 @@ export default function Register() {
   return (
     <Container component="main" maxWidth="xs">
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
+          <Avatar className={classes.avatar}>
+            {/* Felix logo goes here */}
+          </Avatar>
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
