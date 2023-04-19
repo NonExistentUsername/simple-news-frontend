@@ -60,14 +60,51 @@ const styles = {
   },
 };
 
+class User {
+  constructor(token = null) {
+    this.token = token
+  }
+
+  get is_authorized() {
+    return this.token != null
+  }
+}
+
+class ApiManager {
+  async register(username, email, password, handleResult) {
+    const url = "http://0.0.0.0:8000/api/auth/register/"
+
+    let formData = new FormData();
+    formData.append('username', username);
+    if(email != null)
+      formData.append('email', email);
+    formData.append('password', password);
+
+    const response = await fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+
+    const json = await response.json()
+
+    handleResult(json)
+  }
+}
+
+function getUser() {
+  return new User(localStorage.getItem('Authorization'))
+}
+
 function App() {
+  const user = getUser()
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <div style={styles.root}>
-        <Header />
+        <Header user={user} />
         <Container component="main" style={styles.content}>
-          <AuthForm />
+          <AuthForm apiManager={new ApiManager()} />
         </Container>
         <Box mt="auto">
           <Footer />
