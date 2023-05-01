@@ -11,6 +11,8 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
+import { ApiManager } from "../utils";
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -39,8 +41,45 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+let apiManager = new ApiManager();
+
+
 const Login = () => {
   const classes = useStyles();
+  const [username_error, setUsernameError] = React.useState("");
+  const [password_error, setPasswordError] = React.useState("");
+  const [non_field_errors, setNonFieldErrors] = React.useState("");
+
+  const handleApiCallResult = (json) => {
+    setUsernameError("");
+    setPasswordError("");
+    setNonFieldErrors("");
+    if(json.success === true) {
+      window.location.href = "/";
+    } else
+    if(json.success === false) {
+      if(json.hasOwnProperty("username")) {
+        setUsernameError(json.username);
+      }
+      if(json.hasOwnProperty("password")) {
+        setPasswordError(json.password);
+      }
+      if(json.hasOwnProperty("non_field_errors")) {
+        setNonFieldErrors(json.non_field_errors);
+      }
+    }
+  }
+  
+  const submitForm = (event) => {
+    event.preventDefault();
+
+    let username = event.target.username.value;
+    let password = event.target.password.value;
+
+    apiManager.login(username, password, handleApiCallResult).then((json) => {
+      handleApiCallResult(json);
+    });
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -60,7 +99,13 @@ const Login = () => {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={submitForm} noValidate>
+          <Typography variant="body2" color="error">
+            {non_field_errors}
+          </Typography>
+          <Typography variant="body2" color="error">
+            {username_error}
+          </Typography>
           <TextField
             variant="outlined"
             margin="normal"
@@ -72,6 +117,9 @@ const Login = () => {
             autoComplete="username"
             autoFocus
           />
+          <Typography variant="body2" color="error">
+            {password_error}
+          </Typography>
           <TextField
             variant="outlined"
             margin="normal"
