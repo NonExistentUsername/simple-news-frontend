@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
+import { ApiManager } from "../utils";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -32,7 +33,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Register({apiManager}) {
+let apiManager = new ApiManager();
+
+export default function Register() {
   const classes = useStyles();
   const [username_error, setUsernameError] = React.useState("");
   const [password_error, setPasswordError] = React.useState("");

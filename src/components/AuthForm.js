@@ -1,6 +1,6 @@
 import { Button, Card, CardActions, CardContent, CardHeader, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import React, { useState } from 'react';
+import React from 'react';
 import Login from './Login';
 import Register from './Register';
 
@@ -21,27 +21,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AuthForm = ({apiManager}) => {
+const AuthForm = ({ isRegister }) => {
   const classes = useStyles();
-  const [isRegister, setIsRegister] = useState(false);
 
   const handleToggle = () => {
-    setIsRegister(!isRegister);
-  };
+    if(isRegister) {
+      window.location.href = '/register'
+    } else {
+      window.location.href = '/login'
+    }
+  }
 
   return (
     <div className={classes.root}>
       <Card className={classes.card}>
         <CardHeader title="Welcome to Felix News" />
         <CardContent>
-          {isRegister ? <Register apiManager={apiManager} /> : <Login />}
+          {isRegister ? <Login /> : <Register />}
         </CardContent>
         <CardActions>
           <Typography variant="body2">
-            {isRegister ? 'Already have an account?' : "Don't have an account?"}
+            {isRegister ? "Don't have an account?": 'Already have an account?'}
           </Typography>
           <Button color="primary" onClick={handleToggle}>
-            {isRegister ? 'Login' : 'Register'}
+            {isRegister ? 'Register': 'Login' }
           </Button>
         </CardActions>
       </Card>

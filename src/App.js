@@ -2,11 +2,10 @@ import { Box, Container, CssBaseline } from '@material-ui/core';
 import { ThemeProvider, createTheme } from "@material-ui/core/styles";
 import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import AuthForm from "./components/AuthForm";
 import Content from "./components/Content";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-import Login from "./components/Login";
-import Register from "./components/Register";
 import { ApiManager, getUser } from "./utils";
 
 const theme = createTheme({
@@ -72,12 +71,12 @@ let router = createBrowserRouter([
     element: <Content />,
   },
   {
-    path: "/login",
-    element: <Login apiManager={apiManager} />,
+    path: "/login", 
+    element: <AuthForm isRegister={true} />,
   },
   {
     path: "/register",
-    element: <Register apiManager={apiManager} />,
+    element: <AuthForm isRegister={false} />,
   },
 ]);
   
