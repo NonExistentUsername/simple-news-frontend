@@ -38,20 +38,19 @@ export default function Register({apiManager}) {
   const [password_error, setPasswordError] = React.useState("");
 
   const handleApiCallResult = (response) => {
-    if(response.status_code === 400) {
+    setUsernameError("");
+    setPasswordError("");
+
+    if(response.success === true) {
+      window.location.href = "/login";
+    } else
+    if(response.success === false) {
       if(response.hasOwnProperty("username")) {
         setUsernameError(response.username);
-      } else {
-        setUsernameError("");
       }
       if(response.hasOwnProperty("password")) {
         setPasswordError(response.password);
-      } else {
-        setPasswordError("");
       }
-    } else if(response.status_code === 201) {
-      setUsernameError("");
-      setPasswordError("");
     }
   }
 
