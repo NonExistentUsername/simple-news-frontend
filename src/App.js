@@ -71,12 +71,33 @@ class User {
 }
 
 class ApiManager {
-  async register(username, email, password, handleResult) {
-    const url = "http://0.0.0.0:8000/api/auth/register/"
+  constructor() {
+    this.api_url = "http://0.0.0.0:8000/api/"
+  }
+
+  async login(username, password) {
+    const url = this.api_url + "auth/login/"
 
     let formData = new FormData();
     formData.append('username', username);
-    if(email != null)
+    formData.append('password', password);
+    
+    const response = await fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+
+    const json = await response.json()
+
+    return json
+  }
+
+  async register(username, email, password) {
+    const url = this.api_url + "auth/register/"
+
+    let formData = new FormData();
+    formData.append('username', username);
+    if (email)
       formData.append('email', email);
     formData.append('password', password);
 
@@ -87,9 +108,11 @@ class ApiManager {
 
     const json = await response.json()
 
-    handleResult(json)
+    return json
   }
 }
+
+let apiManager = new ApiManager()
 
 function getUser() {
   return new User(localStorage.getItem('Authorization'))
@@ -104,7 +127,7 @@ function App() {
       <div style={styles.root}>
         <Header user={user} />
         <Container component="main" style={styles.content}>
-          <AuthForm apiManager={new ApiManager()} />
+          <AuthForm apiManager={apiManager} />
         </Container>
         <Box mt="auto">
           <Footer />
