@@ -34,9 +34,25 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Register({apiManager}) {
   const classes = useStyles();
+  const [username_error, setUsernameError] = React.useState("");
+  const [password_error, setPasswordError] = React.useState("");
 
   const handleApiCallResult = (response) => {
-    console.log(response)
+    if(response.status_code === 400) {
+      if(response.hasOwnProperty("username")) {
+        setUsernameError(response.username);
+      } else {
+        setUsernameError("");
+      }
+      if(response.hasOwnProperty("password")) {
+        setPasswordError(response.password);
+      } else {
+        setPasswordError("");
+      }
+    } else if(response.status_code === 201) {
+      setUsernameError("");
+      setPasswordError("");
+    }
   }
 
   const submitForm = (event) => {
@@ -44,7 +60,7 @@ export default function Register({apiManager}) {
 
     console.log(event.target.password.value)
 
-    apiManager.register(event.target.username.value, null, event.target.password.value, handleApiCallResult)
+    apiManager.register(event.target.username.value, null, event.target.password.value).then(handleApiCallResult);
   }
 
   return (
@@ -59,6 +75,9 @@ export default function Register({apiManager}) {
         <form className={classes.form} onSubmit={submitForm} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12}>
+              <Typography variant="body2" color="error">
+                {username_error}
+              </Typography>
               <TextField
                 autoComplete="uname"
                 name="username"
@@ -70,6 +89,9 @@ export default function Register({apiManager}) {
                 autoFocus
               />
             </Grid>
+            <Typography variant="body2" color="error">
+              {password_error}
+            </Typography>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
