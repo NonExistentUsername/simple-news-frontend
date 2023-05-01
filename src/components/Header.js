@@ -42,6 +42,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function LoginButton() {
+  const classes = useStyles()
+  
+  return (
+    <Button href="/login" color="inherit" className={classes.button}>
+      Login
+    </Button>
+  )
+}
+
 function Header({ user }) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -74,14 +84,15 @@ function Header({ user }) {
           My News
         </Button>
         <div>
-          <IconButton
+        {user.is_authorized ? <IconButton
             onClick={handleMenuOpen}
             aria-haspopup="true"
             color="inherit"
             style={{ padding: 0 }}
           >
-            {user.is_authorized ? <Avatar className={classes.avatar}>F</Avatar> : null}
+             <Avatar className={classes.avatar}>F</Avatar>
           </IconButton>
+          : LoginButton()}
           <Menu
             id="menu-appbar"
             anchorEl={anchorEl}
