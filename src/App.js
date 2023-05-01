@@ -1,9 +1,13 @@
 import { Box, Container, CssBaseline } from '@material-ui/core';
 import { ThemeProvider, createTheme } from "@material-ui/core/styles";
 import React from "react";
-import AuthForm from './components/AuthForm';
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Content from "./components/Content";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import { ApiManager, getUser } from "./utils";
 
 const theme = createTheme({
   palette: {
@@ -60,68 +64,23 @@ const styles = {
   },
 };
 
-class User {
-  constructor(token = null) {
-    this.token = token
-  }
-
-  get is_authorized() {
-    return this.token != null
-  }
-
-  get headers() {
-    return { 'Authorization': 'Bearer ' + this.token }
-  }
-}
-
-class ApiManager {
-  constructor() {
-    this.api_url = "http://0.0.0.0:8000/api/"
-  }
-
-  async login(username, password) {
-    const url = this.api_url + "auth/login/"
-
-    let formData = new FormData();
-    formData.append('username', username);
-    formData.append('password', password);
-    
-    const response = await fetch(url, {
-      method: "POST",
-      body: formData,
-    })
-
-    const json = await response.json()
-
-    return json
-  }
-
-  async register(username, email, password) {
-    const url = this.api_url + "auth/register/"
-
-    let formData = new FormData();
-    formData.append('username', username);
-    if (email)
-      formData.append('email', email);
-    formData.append('password', password);
-
-    const response = await fetch(url, {
-      method: "POST",
-      body: formData,
-    })
-
-    const json = await response.json()
-
-    return json
-  }
-}
-
 let apiManager = new ApiManager()
 
-function getUser() {
-  return new User(localStorage.getItem('Authorization'))
-}
-
+let router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Content />,
+  },
+  {
+    path: "/login",
+    element: <Login apiManager={apiManager} />,
+  },
+  {
+    path: "/register",
+    element: <Register apiManager={apiManager} />,
+  },
+]);
+  
 function App() {
   const user = getUser()
 
@@ -131,7 +90,7 @@ function App() {
       <div style={styles.root}>
         <Header user={user} />
         <Container component="main" style={styles.content}>
-          <AuthForm apiManager={apiManager} />
+          <RouterProvider router={router} />
         </Container>
         <Box mt="auto">
           <Footer />
