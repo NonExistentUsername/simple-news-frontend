@@ -68,6 +68,10 @@ class User {
   get is_authorized() {
     return this.token != null
   }
+
+  get headers() {
+    return { 'Authorization': 'Bearer ' + this.token }
+  }
 }
 
 class ApiManager {
