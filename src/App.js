@@ -6,7 +6,7 @@ import AuthForm from "./components/AuthForm";
 import Content from "./components/Content";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-import { ApiManager, getUser } from "./utils";
+import { getUser } from "./utils";
 
 const theme = createTheme({
   palette: {
@@ -63,7 +63,6 @@ const styles = {
   },
 };
 
-let apiManager = new ApiManager()
 
 let router = createBrowserRouter([
   {
