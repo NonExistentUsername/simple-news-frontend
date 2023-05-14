@@ -40,6 +40,12 @@ const useStyles = makeStyles((theme) => ({
     margin: 0,
     padding: 0,
   },
+  menu: {
+    marginTop: 40,
+    "& li": {
+      minWidth: 200,
+    },
+  },
 }));
 
 function LoginButton() {
@@ -62,6 +68,11 @@ function Header({ user }) {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("Authorization");
+    window.location.href = "/";
   };
 
   return (
@@ -107,10 +118,11 @@ function Header({ user }) {
             }}
             open={Boolean(anchorEl)}
             onClose={handleMenuClose}
+            className={classes.menu}
           >
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+            <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Menu>
         </div>
       </Toolbar>
