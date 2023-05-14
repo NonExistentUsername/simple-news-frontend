@@ -3,9 +3,9 @@ import { ThemeProvider, createTheme } from "@material-ui/core/styles";
 import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import AuthForm from "./components/AuthForm";
-import Content from "./components/Content";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import News from "./components/News";
 import { getUser } from "./utils";
 
 const theme = createTheme({
@@ -67,7 +67,7 @@ const styles = {
 let router = createBrowserRouter([
   {
     path: "/",
-    element: <Content />,
+    element: <News />,
   },
   {
     path: "/login", 
