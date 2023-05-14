@@ -54,8 +54,11 @@ const Login = () => {
     setUsernameError("");
     setPasswordError("");
     setNonFieldErrors("");
+    json.success = json.token ? true : false;
+
     if(json.success === true) {
       window.location.href = "/";
+      localStorage.setItem("Authorization", json.token)
     } else
     if(json.success === false) {
       if(json.hasOwnProperty("username")) {
@@ -76,7 +79,7 @@ const Login = () => {
     let username = event.target.username.value;
     let password = event.target.password.value;
 
-    apiManager.login(username, password, handleApiCallResult).then((json) => {
+    apiManager.login(username, password).then((json) => {
       handleApiCallResult(json);
     });
   };
