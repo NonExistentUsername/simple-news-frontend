@@ -118,6 +118,12 @@ export default function Header({ user }) {
     window.location.href = "/";
   };
 
+  const handleSearch = (event) => {
+    if (event.key === 'Enter') {
+      window.location.href = "/?content=" + event.target.value;
+    }
+  }
+
   return (
     <AppBar className={classes.appBar}>
       <Toolbar>
@@ -131,7 +137,7 @@ export default function Header({ user }) {
         <Typography variant="h6" className={classes.title}>
           Felix News Site
         </Typography>
-        <Search>
+        <Search onKeyDown={handleSearch}>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>

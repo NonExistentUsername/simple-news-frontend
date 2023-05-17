@@ -48,14 +48,18 @@ export default function News() {
     const classes = useStyles();
     const [news, setNews] = React.useState(null);
 
+    const urlParams = new URLSearchParams(window.location.search);
+    const content_search_param = urlParams.get('content');
+    
+
     React.useEffect(() => {
-        apiManager.getNews().then((data) => {
+        apiManager.getNews(1, null, true, null, content_search_param).then((data) => {
             setNews(data);
         });
     }, []);
 
     const handleChangePage = (event, value) => {
-        apiManager.getNews(value).then((data) => {
+        apiManager.getNews(value, null, true, null, content_search_param).then((data) => {
             setNews(data);
         });
     };

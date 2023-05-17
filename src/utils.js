@@ -40,7 +40,7 @@ export class ApiManager {
     return json
   }
 
-  async getNews(page = 1, created_by = null, is_published = null, user = null) {
+  async getNews(page = 1, created_by = null, is_published = null, user = null, content = null) {
     let url = this.api_url + "news/?page=" + page
 
     if (created_by != null)
@@ -50,6 +50,9 @@ export class ApiManager {
       url += "&is_published=" + is_published
     else
       url += "&is_published="
+
+    if (content != null)
+      url += "&content=" + content
 
     let headers = {}
     if (user != null)
