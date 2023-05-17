@@ -100,6 +100,26 @@ export class ApiManager {
 
     return json
   }
+
+  async createNews(title, content, is_published, user) {
+    const url = this.api_url + "news/"
+
+    let formData = new FormData();
+    formData.append('title', title);
+    formData.append('content', content);
+    formData.append('is_published', is_published);
+    formData.append('created_by', user.username);
+
+    const response = await fetch(url, {
+      method: "POST",
+      body: formData,
+      headers: user.headers
+    })
+
+    const json = await response.json()
+
+    return json
+  }
 }
 
 export class User {

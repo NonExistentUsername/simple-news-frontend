@@ -5,6 +5,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Article, articleLoader } from './components/Article';
 import AuthForm from "./components/AuthForm";
 import ComingSoon from './components/ComingSoon';
+import { CreateNews, createNewsLoader } from './components/CreateNews';
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Loader from './components/Loader';
@@ -100,7 +101,8 @@ let router = createBrowserRouter([
   },
   {
     path: "/create-news",
-    element: <ComingSoon />,
+    element: <CreateNews />,
+    loader: createNewsLoader,
   },
   {
     path: "/edit-news/:id",
