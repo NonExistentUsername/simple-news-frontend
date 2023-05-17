@@ -9,31 +9,38 @@ import { ApiManager, getUser } from "../utils";
 
 const apiManager = new ApiManager();
 
-export async function createNewsLoader() {
+export async function editNewsLoader({ params: { id }}) {
     let user = null;
 
-    const _ = await getUser().then((u) => {
+    const _2 = await getUser().then((u) => {
         user = u;
     })
 
-    return { user };
+    let news = null;
+
+    const _1 = await apiManager.getArticle(id, user).then((data) => {
+        news = data;
+    })
+
+
+    return { user: user, news: news };
 }
 
-export function CreateNews() {
+export function EditNews() {
     const [isPending, setIsPending] = useState(false);
-    const { user } = useLoaderData();
+    const { user, news } = useLoaderData();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setIsPending(true);
         
-        const news = {
+        const news_form = {
             title: e.target.id_title.value,
             content: e.target.id_content.value,
             is_published: e.target.id_is_published.value === "True" ? true : false
         }
 
-        apiManager.createNews(news.title, news.content, news.is_published, user).then((data) => {
+        apiManager.updateNews(news.id, news_form.title, news_form.content, news_form.is_published, user).then((data) => {
             setIsPending(false);
             window.location.href = "/article/" + data.id;
         });
@@ -41,26 +48,26 @@ export function CreateNews() {
 
     return (
         <Card style={{ width: "100%", marginTop: "20px", marginBottom: "20px" }}>
-            <CardHeader title="Add a New News" />
+            <CardHeader title="Edit News" />
 
             <Box component="form" onSubmit={handleSubmit} style={{ padding: "20px", maxWidth: "600px", display: "flex", flexDirection: "column", gap: "20px" }}>
                 <TextField
                     required
                     id="id_title"
                     label="Title"
-                    defaultValue=""
+                    defaultValue={news.title}
                 />
                 <TextField
                     required
                     id="id_content"
                     label="Content"
-                    defaultValue=""
+                    defaultValue={news.content}
                 />
                 <TextField
                     id="id_is_published"
                     select
                     label="Is published"
-                    defaultValue="False"
+                    defaultValue={news.is_published ? "True" : "False"}
                     SelectProps={{
                       native: true,
                     }}
@@ -76,11 +83,11 @@ export function CreateNews() {
                 { 
                     !isPending ?
                     <Button type="submit" variant="contained" color="primary">
-                        Add News
+                        Save
                     </Button>
                     :
                     <Button disabled type="submit" variant="contained" color="primary">
-                        Adding News...
+                        Saving...
                     </Button>
                 }
             </Box>

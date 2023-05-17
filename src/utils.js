@@ -120,6 +120,26 @@ export class ApiManager {
 
     return json
   }
+
+  async updateNews(id, title, content, is_published, user) {
+    const url = this.api_url + "news/" + id + "/"
+
+    let formData = new FormData();
+    formData.append('title', title);
+    formData.append('content', content);
+    formData.append('is_published', is_published);
+    formData.append('created_by', user.username);
+
+    const response = await fetch(url, {
+      method: "PUT",
+      body: formData,
+      headers: user.headers
+    })
+
+    const json = await response.json()
+
+    return json
+  }
 }
 
 export class User {

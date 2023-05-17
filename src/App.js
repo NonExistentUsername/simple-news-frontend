@@ -6,6 +6,7 @@ import { Article, articleLoader } from './components/Article';
 import AuthForm from "./components/AuthForm";
 import ComingSoon from './components/ComingSoon';
 import { CreateNews, createNewsLoader } from './components/CreateNews';
+import { EditNews, editNewsLoader } from './components/EditNews';
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Loader from './components/Loader';
@@ -106,7 +107,8 @@ let router = createBrowserRouter([
   },
   {
     path: "/edit-news/:id",
-    element: <ComingSoon />,
+    element: <EditNews />,
+    loader: editNewsLoader,
   },
 ]);
   
