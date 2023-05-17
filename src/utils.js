@@ -40,8 +40,8 @@ export class ApiManager {
     return json
   }
 
-  async getNews() {
-    const url = this.api_url + "news/"
+  async getNews(page = 1) {
+    const url = this.api_url + "news/?page=" + page
 
     const response = await fetch(url)
 

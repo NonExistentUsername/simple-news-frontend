@@ -1,7 +1,9 @@
 import { Grid, List, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import Pagination from '@mui/material/Pagination';
 import React from "react";
 import { ApiManager } from "../utils";
+import Loader from "./Loader";
 import NewsCard from "./NewsCard";
 
 const apiManager = new ApiManager();
@@ -44,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function News() {
     const classes = useStyles();
-    const [news, setNews] = React.useState({});
+    const [news, setNews] = React.useState(null);
 
     React.useEffect(() => {
         apiManager.getNews().then((data) => {
@@ -55,6 +57,18 @@ export default function News() {
     const handleToggle = () => {
         
     };
+
+    const handleChangePage = (event, value) => {
+        apiManager.getNews(value).then((data) => {
+            setNews(data);
+        });
+    };
+
+    if(news === null) {
+        return (
+            <Loader />
+        )
+    }
     
     return (
         <div>
@@ -70,6 +84,9 @@ export default function News() {
                         ))
                     }
                 </Grid>
+            </div>
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "20px", marginBottom: "20px" }}>
+                <Pagination count={Math.ceil(news.count / 10)} shape="rounded" onChange={handleChangePage} />
             </div>
         </div>
     );
