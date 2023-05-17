@@ -63,7 +63,7 @@ export function Article () {
                 <CardActions>
                     <List style={{ width: "100%" }}>
                             {
-                                created_by === user.username ? (
+                                created_by === user.username || user.is_staff ? (
                                     <ListItem selected={true}>
                                         <Button onClick={() => window.location.href = "/edit-news/" + article.id}>
                                             Edit
