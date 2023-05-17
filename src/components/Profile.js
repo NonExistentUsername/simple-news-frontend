@@ -1,15 +1,48 @@
-import { ApiManager, getUser } from "../utils";
+import { Paper } from "@material-ui/core";
+import Avatar from '@material-ui/core/Avatar';
+import { makeStyles } from '@material-ui/core/styles';
+import { useLoaderData } from 'react-router-dom';
+import { AnonymousUser, ApiManager, getUser } from "../utils";
 
 const apiManager = new ApiManager();
 
-export function profileLoader() {
-    return getUser();
+const useStyles = makeStyles((theme) => ({
+    avatar: {
+        margin: theme.spacing(1),
+        backgroundColor: theme.palette.secondary.main,
+    },
+    paper: {
+        padding: theme.spacing(2),
+        margin: theme.spacing(2),
+        color: theme.palette.text.secondary,
+        height: '100%',
+    }
+}));
+
+
+export async function profileLoader() {
+    let user = new AnonymousUser();
+
+    const _ = await getUser().then((u) => {
+        user = u;
+    })
+    
+    return { user };
 }
 
 export function Profile() {
+    let { user } = useLoaderData();
+    console.log(user);
+
     return (
-        <div>
+        <Paper className={useStyles().paper}>
             <h1>Profile</h1>
-        </div>
+            <div>
+                <Avatar>{user.username[0]}</Avatar>
+                <h2>{user.username}</h2>
+            </div>
+            <p>{user.email}</p>
+            
+        </Paper>
     );
 }

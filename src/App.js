@@ -8,6 +8,7 @@ import AuthForm from "./components/AuthForm";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import News from "./components/News";
+import { Profile, profileLoader } from './components/Profile';
 import { getUser } from "./utils.js";
 
 const theme = createTheme({
@@ -83,7 +84,8 @@ let router = createBrowserRouter([
   },
   {
     path: "/profile",
-    element: <div>Profile</div>,
+    element: <Profile />,
+    loader: profileLoader,
   },
 ]);
   
