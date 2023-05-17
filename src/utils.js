@@ -143,9 +143,9 @@ export class ApiManager {
 }
 
 export class User {
-  constructor(token = null, is_stuff = false, username = null, email = null, id = null) {
+  constructor(token = null, is_staff = false, username = null, email = null, id = null) {
     this.token = token
-    this._is_stuff = is_stuff
+    this.is_staff = is_staff
     this.username = username
     this.email = email
     this.id = id
@@ -153,10 +153,6 @@ export class User {
 
   get is_authorized() {
     return this.token != null
-  }
-
-  get is_stuff() {
-    return this._is_stuff
   }
 
   get headers() {
