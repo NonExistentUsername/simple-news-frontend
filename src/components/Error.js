@@ -5,7 +5,7 @@ export default function Error({ message }) {
 
     return (
         message ? (
-            <Alert severity="error">
+            <Alert severity="error" style={{ width: "100%", marginBottom: "10px", marginTop: "10px" }}>
               <AlertTitle>Error</AlertTitle>
               {message}
             </Alert>
