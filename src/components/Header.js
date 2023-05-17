@@ -143,7 +143,7 @@ export default function Header({ user }) {
         <Button color="inherit" className={classes.button} onClick={() => window.location.href = "/"}>
           News
         </Button>
-        <Button color="inherit" className={classes.button}>
+        <Button color="inherit" className={classes.button} onClick={() => window.location.href = "/my-news/"}>
           My News
         </Button>
         <div>

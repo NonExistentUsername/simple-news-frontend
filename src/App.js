@@ -8,6 +8,7 @@ import ComingSoon from './components/ComingSoon';
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Loader from './components/Loader';
+import { MyNews, myNewsLoader } from './components/MyNews';
 import News from "./components/News";
 import { Profile, profileLoader } from './components/Profile';
 import { getUser } from "./utils.js";
@@ -91,6 +92,11 @@ let router = createBrowserRouter([
   {
     path: "/settings",
     element: <ComingSoon />,
+  },
+  {
+    path: "/my-news",
+    element: <MyNews />,
+    loader: myNewsLoader,
   }
 ]);
   

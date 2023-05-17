@@ -40,10 +40,26 @@ export class ApiManager {
     return json
   }
 
-  async getNews(page = 1) {
-    const url = this.api_url + "news/?page=" + page
+  async getNews(page = 1, created_by = null, is_published = null, user = null) {
+    let url = this.api_url + "news/?page=" + page
 
-    const response = await fetch(url)
+    if (created_by != null)
+      url += "&created_by=" + created_by
+
+    if (is_published != null)
+      url += "&is_published=" + is_published
+    else
+      url += "&is_published="
+
+    let headers = {}
+    if (user != null)
+      headers = user.headers
+      console.log(headers)
+
+    const response = await fetch(url, {
+      method: "GET",
+      headers: headers
+    })
 
     const json = await response.json()
 
@@ -80,11 +96,12 @@ export class ApiManager {
 }
 
 export class User {
-  constructor(token = null, is_stuff = false, username = null, email = null) {
+  constructor(token = null, is_stuff = false, username = null, email = null, id = null) {
     this.token = token
     this._is_stuff = is_stuff
     this.username = username
     this.email = email
+    this.id = id
   }
 
   get is_authorized() {
@@ -114,7 +131,7 @@ export async function getUser() {
 
   if (token != null) {
     const _ = await apiManager.getMe(token).then((data) => {
-      user = new User(token, data.is_staff, data.username, data.email)
+      user = new User(token, data.is_staff, data.username, data.email, data.id)
     })
   }
   return user

@@ -2,12 +2,10 @@ import { Grid, List, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Pagination from '@mui/material/Pagination';
 import React from "react";
-import { ApiManager } from "../utils";
+import { useLoaderData } from 'react-router-dom';
+import { AnonymousUser, ApiManager, getUser } from "../utils";
 import Loader from "./Loader";
 import NewsCard from "./NewsCard";
-
-const apiManager = new ApiManager();
-
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -43,33 +41,46 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+const apiManager = new ApiManager();
 
-export default function News() {
+export async function myNewsLoader() {
+    let user = new AnonymousUser();
+
+    const _ = await getUser().then((u) => {
+        user = u;
+    })
+
+    return { user };
+}
+
+export function MyNews() {
     const classes = useStyles();
     const [news, setNews] = React.useState(null);
+    const { user } = useLoaderData();
 
+    console.log(user);
     React.useEffect(() => {
-        apiManager.getNews().then((data) => {
+        apiManager.getNews(1, user.id, null, user).then((data) => {
             setNews(data);
         });
     }, []);
 
     const handleChangePage = (event, value) => {
-        apiManager.getNews(value).then((data) => {
+        apiManager.getNews(value, user.id, null, user).then((data) => {
             setNews(data);
         });
-    };
+    }
 
     if(news === null) {
         return (
             <Loader />
         )
     }
-    
+
     return (
         <div>
             <List className={classes.news_headers}>
-                <Typography variant="h4">Welcome to Felix News</Typography>
+                <Typography variant="h4">Your news</Typography>
                 <Typography variant="body2">News count: {news.count}</Typography>
             </List>
             <div className={classes.news_list_container}>
