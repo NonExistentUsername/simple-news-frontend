@@ -1,4 +1,6 @@
-import { Typography } from '@material-ui/core';
+import { Card, CardActions, CardContent, CardHeader, List, ListItem, ListItemAvatar, ListItemText, ListSubheader, Typography } from '@material-ui/core';
+import Avatar from '@material-ui/core/Avatar';
+import { makeStyles } from "@material-ui/core/styles";
 import React from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { ApiManager } from "../utils";
@@ -12,7 +14,24 @@ export async function articleLoader ({ params}) {
     return { article };
 }
 
+const useStyles = makeStyles((theme) => ({
+    main: {
+        marginTop: theme.spacing(8),
+        marginBottom: theme.spacing(2),
+        width: '100%',
+        height: '100%',
+    },
+    paper: {
+        padding: theme.spacing(2),
+        margin: 'auto',
+        height: '100%',
+    },
+}));
+
+
 export function Article () {
+    const classes = useStyles();
+    
     let { article }  = useLoaderData();
     article = article.data;
 
@@ -23,11 +42,43 @@ export function Article () {
     
 
     return (
-        <div>
-            <Typography variant="h4">{title}</Typography>
-            <Typography variant="body2">{content}</Typography>
-            <Typography variant="body2">{created_by}</Typography>
-            <Typography variant="body2">{created_at}</Typography>
+        <div className={classes.main}>
+            <Card>
+                <CardHeader 
+                    title={title} 
+                    subheader={created_by + ' - ' + created_at}
+                />
+                <CardContent>
+                    <Typography variant="body2">
+                        {content}
+                    </Typography>
+                </CardContent>
+                <CardActions>
+                    <List subheader={<ListSubheader>Comments</ListSubheader>} className={classes.root}>
+                        <ListItem alignItems="flex-start">
+                            <ListItemAvatar>
+                                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                            </ListItemAvatar>
+                            <ListItemText
+                                primary="Brunch this weekend?"
+                                secondary={
+                                    <React.Fragment>
+                                        <Typography
+                                            component="span"
+                                            variant="body2"
+                                            className={classes.inline}
+                                            color="textPrimary"
+                                        >
+                                        Ali Connors
+                                        </Typography>
+                                        {" — I'll be in your neighborhood doing errands this…"}
+                                    </React.Fragment>
+                                }
+                            />
+                        </ListItem>
+                    </List>
+                </CardActions>
+            </Card>
         </div>
     );
 }
