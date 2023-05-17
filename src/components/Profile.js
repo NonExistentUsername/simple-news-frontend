@@ -36,8 +36,10 @@ export function Profile() {
 
     return (
         <Paper className={useStyles().paper}>
-            <h1>Profile</h1>
-            <div>
+            <h1>
+                Profile
+            </h1>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                 <Avatar>{user.username[0]}</Avatar>
                 <h2>{user.username}</h2>
             </div>
