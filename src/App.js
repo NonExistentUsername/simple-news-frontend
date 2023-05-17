@@ -1,5 +1,4 @@
 import { Box, Container, CssBaseline } from '@material-ui/core';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { ThemeProvider, createTheme } from "@material-ui/core/styles";
 import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
@@ -8,6 +7,7 @@ import AuthForm from "./components/AuthForm";
 import ComingSoon from './components/ComingSoon';
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import Loader from './components/Loader';
 import News from "./components/News";
 import { Profile, profileLoader } from './components/Profile';
 import { getUser } from "./utils.js";
@@ -109,9 +109,7 @@ function App() {
         <CssBaseline />
         <div style={styles.root}>
           <Container component="main">
-            <div style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <CircularProgress />
-            </div>
+            <Loader />
           </Container>  
         </div>
       </ThemeProvider>
