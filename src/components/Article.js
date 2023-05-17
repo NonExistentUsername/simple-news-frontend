@@ -2,6 +2,7 @@ import { Card, CardActions, CardContent, CardHeader, List, ListItem, ListItemAva
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from "@material-ui/core/styles";
+import Moment from 'moment';
 import React from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { ApiManager, getUser } from "../utils";
@@ -38,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 export function Article () {
+    Moment.locale('en');
     const classes = useStyles();
     
     let { article, user }  = useLoaderData();
@@ -54,7 +56,7 @@ export function Article () {
             <Card>
                 <CardHeader 
                     title={title} 
-                    subheader={created_by + ' - ' + created_at}
+                    subheader={created_by + ' - ' + Moment(created_at).format('MMMM Do YYYY, h:mm:ss a')}
                 />
                 <CardContent>
                     {
