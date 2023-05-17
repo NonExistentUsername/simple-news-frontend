@@ -121,7 +121,7 @@ export class ApiManager {
     return json
   }
 
-  async updateNews(id, title, content, is_published, user) {
+  async updateNews(id, title, content, is_published, is_banned, user) {
     const url = this.api_url + "news/" + id + "/"
 
     let formData = new FormData();
@@ -129,6 +129,9 @@ export class ApiManager {
     formData.append('content', content);
     formData.append('is_published', is_published);
     formData.append('created_by', user.username);
+
+    if (is_banned != null)
+      formData.append('is_banned', is_banned);
 
     const response = await fetch(url, {
       method: "PUT",

@@ -1,4 +1,5 @@
 import { Button, Card, CardActions, CardContent, CardHeader, Typography } from "@material-ui/core";
+import Chip from '@material-ui/core/Chip';
 import { makeStyles } from "@material-ui/core/styles";
 import Moment from 'moment';
 import React from "react";
@@ -47,6 +48,12 @@ export default function NewsCard({ article, index }) {
                 subheader={article.created_by + ' - ' + Moment(article.created_at).format('MMMM Do YYYY, h:mm:ss a')}
             />
             <CardContent className={classes.card_content}>
+                {
+                    article.is_banned ?
+                    <Chip label="Banned" color="secondary" style={{ marginBottom: "10px" }} />
+                    :
+                    null
+                }
                 <Typography variant="body2">
                     {article.content}
                 </Typography>

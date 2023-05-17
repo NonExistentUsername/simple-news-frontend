@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import { useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { ApiManager, getUser } from "../utils";
+import Error from './Error';
 
 const apiManager = new ApiManager();
 
@@ -34,13 +35,18 @@ export function EditNews() {
         e.preventDefault();
         setIsPending(true);
         
-        const news_form = {
+        let news_form = {
             title: e.target.id_title.value,
             content: e.target.id_content.value,
-            is_published: e.target.id_is_published.value === "True" ? true : false
+            is_published: e.target.id_is_published.value === "True" ? true : false,
         }
 
-        apiManager.updateNews(news.id, news_form.title, news_form.content, news_form.is_published, user).then((data) => {
+        if (user.is_staff) {
+            news_form.is_banned = e.target.id_is_banned.value === "True" ? true : false;
+        } else
+            news_form.is_banned = null;
+
+        apiManager.updateNews(news.id, news_form.title, news_form.content, news_form.is_published, news_form.is_banned, user).then((data) => {
             setIsPending(false);
             window.location.href = "/article/" + data.id;
         });
@@ -51,6 +57,12 @@ export function EditNews() {
             <CardHeader title="Edit News" />
 
             <Box component="form" onSubmit={handleSubmit} style={{ padding: "20px", maxWidth: "600px", display: "flex", flexDirection: "column", gap: "20px" }}>
+                {
+                    news.is_banned ?
+                    <Error message="This news is banned" />
+                    :
+                    null
+                }
                 <TextField
                     required
                     id="id_title"
@@ -80,6 +92,28 @@ export function EditNews() {
                         ))
                     }
                 </TextField>
+                {
+                    user.is_staff ?
+                    <TextField
+                        id="id_is_banned"
+                        select
+                        label="Is banned"
+                        defaultValue={news.is_banned ? "True" : "False"}
+                        SelectProps={{
+                            native: true,
+                        }}
+                    >
+                        {
+                            ["True", "False"].map((option, index) => (
+                                <option key={index} value={option}>
+                                    {option}
+                                </option>
+                            ))
+                        }
+                    </TextField>
+                    :
+                    null
+                }
                 { 
                     !isPending ?
                     <Button type="submit" variant="contained" color="primary">

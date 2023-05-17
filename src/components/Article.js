@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import React from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { ApiManager, getUser } from "../utils";
+import Error from './Error';
 
 const apiManager = new ApiManager();
 
@@ -56,6 +57,12 @@ export function Article () {
                     subheader={created_by + ' - ' + created_at}
                 />
                 <CardContent>
+                    {
+                        article.is_banned ?
+                        <Error message="This news is banned" />
+                        :
+                        null
+                    }
                     <Typography variant="body2">
                         {content}
                     </Typography>
