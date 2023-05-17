@@ -173,7 +173,7 @@ export default function Header({ user }) {
             className={classes.menu}
           >
             <MenuItem onClick={() => window.location.href = "/profile/"}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
+            <MenuItem onClick={() => window.location.href = "/settings/"}>Settings</MenuItem>
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Menu>
         </div>

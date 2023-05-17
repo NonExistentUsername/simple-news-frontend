@@ -5,6 +5,7 @@ import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Article, articleLoader } from './components/Article';
 import AuthForm from "./components/AuthForm";
+import ComingSoon from './components/ComingSoon';
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import News from "./components/News";
@@ -87,6 +88,10 @@ let router = createBrowserRouter([
     element: <Profile />,
     loader: profileLoader,
   },
+  {
+    path: "/settings",
+    element: <ComingSoon />,
+  }
 ]);
   
 function App() {
