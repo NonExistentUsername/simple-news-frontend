@@ -12,6 +12,8 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
 import { ApiManager } from "../utils";
+import Error from "./Error";
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -103,12 +105,8 @@ const Login = () => {
           Sign in
         </Typography>
         <form className={classes.form} onSubmit={submitForm} noValidate>
-          <Typography variant="body2" color="error">
-            {non_field_errors}
-          </Typography>
-          <Typography variant="body2" color="error">
-            {username_error}
-          </Typography>
+          <Error message={non_field_errors} />
+          <Error message={username_error} />
           <TextField
             variant="outlined"
             margin="normal"
@@ -120,9 +118,7 @@ const Login = () => {
             autoComplete="username"
             autoFocus
           />
-          <Typography variant="body2" color="error">
-            {password_error}
-          </Typography>
+          <Error message={password_error} />
           <TextField
             variant="outlined"
             margin="normal"
