@@ -1,4 +1,5 @@
 import { Box, Container, CssBaseline } from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { ThemeProvider, createTheme } from "@material-ui/core/styles";
 import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
@@ -7,7 +8,7 @@ import AuthForm from "./components/AuthForm";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import News from "./components/News";
-import { getUser } from "./utils";
+import { getUser } from "./utils.js";
 
 const theme = createTheme({
   palette: {
@@ -58,10 +59,7 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     minHeight: '100vh',
-  },
-  content: {
-    flex: '1 0 auto',
-  },
+  }
 };
 
 
@@ -82,11 +80,37 @@ let router = createBrowserRouter([
     path: "/article/:id",
     element: <Article />,
     loader: articleLoader,
-  }
+  },
+  {
+    path: "/profile",
+    element: <div>Profile</div>,
+  },
 ]);
   
 function App() {
-  const user = getUser()
+  const [user, setUser] = React.useState(null);
+
+  React.useEffect(() => {
+    getUser().then((user) => {
+      setUser(user);
+    });
+  }, []);
+
+  if(user === null) {
+    return (
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <div style={styles.root}>
+          <Container component="main">
+            <div style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <CircularProgress />
+            </div>
+          </Container>  
+        </div>
+      </ThemeProvider>
+    )
+  }
+
 
   return (
     <ThemeProvider theme={theme}>

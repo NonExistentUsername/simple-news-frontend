@@ -1,4 +1,4 @@
-import { Button, Card, CardActions, CardContent, CardHeader, Grid, List, Typography } from "@material-ui/core";
+import { Grid, List, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
 import { ApiManager } from "../utils";
@@ -46,21 +46,16 @@ export default function News() {
     const classes = useStyles();
     const [news, setNews] = React.useState({});
 
-    const getNews = () => {
+    React.useEffect(() => {
         apiManager.getNews().then((data) => {
-            console.log(data);
             setNews(data);
         });
-    };
-
-    React.useEffect(() => {
-        getNews();
-    }, {});
-
+    }, []);
+    
     const handleToggle = () => {
         
     };
-
+    
     return (
         <div>
             <List className={classes.news_headers}>

@@ -59,22 +59,61 @@ export class ApiManager {
 
     return json
   }
+
+  async getMe(token) {
+    const url = this.api_url + "users/me/"
+    
+    const response = await fetch(url, 
+      {
+        method: "GET",
+        headers: {
+          "Authorization": "Bearer " + token
+
+        }
+      }
+    )
+
+    const json = await response.json()
+
+    return json
+  }
 }
 
 export class User {
-  constructor(token = null) {
+  constructor(token = null, is_stuff = false) {
     this.token = token
+    this._is_stuff = is_stuff
   }
 
   get is_authorized() {
     return this.token != null
   }
 
+  get is_stuff() {
+    return this._is_stuff
+  }
+
   get headers() {
-    return { 'Authorization': 'Bearer ' + this.token }
+    return { 'Authorization': 'Token ' + this.token }
   }
 }
 
-export function getUser() {
-  return new User(localStorage.getItem('Authorization'))
+export class AnonymousUser extends User {
+  constructor() {
+    super(null, false)
+  }
+}
+
+export async function getUser() {
+  const token = localStorage.getItem("Authorization")
+  console.log(token)
+  const apiManager = new ApiManager()
+  let user = new AnonymousUser()
+
+  if (token != null) {
+    const _ = await apiManager.getMe(token).then((data) => {
+      user = new User(token, data.is_staff)
+    })
+  }
+  return user
 }

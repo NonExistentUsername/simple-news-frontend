@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+
 export default function NewsCard({ article, index }) {
     Moment.locale('en');
     const classes = useStyles();

@@ -101,7 +101,7 @@ function LoginButton() {
   )
 }
 
-function Header({ user }) {
+export default function Header({ user }) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -172,7 +172,7 @@ function Header({ user }) {
             onClose={handleMenuClose}
             className={classes.menu}
           >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+            <MenuItem onClick={() => window.location.href = "/profile/"}>Profile</MenuItem>
             <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Menu>
@@ -181,5 +181,3 @@ function Header({ user }) {
     </AppBar>
   );
 }
-
-export default Header;
