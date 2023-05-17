@@ -2,6 +2,7 @@ import { Box, Container, CssBaseline } from '@material-ui/core';
 import { ThemeProvider, createTheme } from "@material-ui/core/styles";
 import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Article, articleLoader } from './components/Article';
 import AuthForm from "./components/AuthForm";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -77,6 +78,11 @@ let router = createBrowserRouter([
     path: "/register",
     element: <AuthForm isRegister={false} />,
   },
+  {
+    path: "/article/:id",
+    element: <Article />,
+    loader: articleLoader,
+  }
 ]);
   
 function App() {

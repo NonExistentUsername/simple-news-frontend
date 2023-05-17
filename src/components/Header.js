@@ -88,7 +88,7 @@ function Header({ user }) {
         <Typography variant="h6" className={classes.title}>
           Felix News Site
         </Typography>
-        <Button color="inherit" className={classes.button}>
+        <Button color="inherit" className={classes.button} onClick={() => window.location.href = "/"}>
           News
         </Button>
         <Button color="inherit" className={classes.button}>

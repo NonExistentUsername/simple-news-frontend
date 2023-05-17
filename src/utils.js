@@ -49,6 +49,16 @@ export class ApiManager {
 
     return json
   }
+
+  async getArticle(id) {
+    const url = this.api_url + "news/" + id + "/"
+
+    const response = await fetch(url)
+
+    const json = await response.json()
+
+    return json
+  }
 }
 
 export class User {
