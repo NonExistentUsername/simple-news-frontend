@@ -62,15 +62,15 @@ export function Article () {
                 </CardContent>
                 <CardActions>
                     <List style={{ width: "100%" }}>
-                        <ListItem selected={true}>
                             {
                                 created_by === user.username ? (
-                                    <Button onClick={() => window.location.href = "/edit-news/" + article.id}>
-                                        Edit
-                                    </Button>
+                                    <ListItem selected={true}>
+                                        <Button onClick={() => window.location.href = "/edit-news/" + article.id}>
+                                            Edit
+                                        </Button>
+                                    </ListItem>
                                 ) : null
                             }
-                        </ListItem>
                         <ListItem>
                             <List subheader={<ListSubheader>Comments</ListSubheader>} className={classes.root}>
                                 <ListItem alignItems="flex-start">
