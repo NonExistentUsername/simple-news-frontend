@@ -66,10 +66,17 @@ export class ApiManager {
     return json
   }
 
-  async getArticle(id) {
+  async getArticle(id, user = null) {
     const url = this.api_url + "news/" + id + "/"
 
-    const response = await fetch(url)
+    let headers = {}
+    if (user != null)
+      headers = user.headers
+    
+    const response = await fetch(url, {
+      method: "GET",
+      headers: headers
+    })
 
     const json = await response.json()
 

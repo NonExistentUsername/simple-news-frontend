@@ -97,7 +97,15 @@ let router = createBrowserRouter([
     path: "/my-news",
     element: <MyNews />,
     loader: myNewsLoader,
-  }
+  },
+  {
+    path: "/create-news",
+    element: <ComingSoon />,
+  },
+  {
+    path: "/edit-news/:id",
+    element: <ComingSoon />,
+  },
 ]);
   
 function App() {
