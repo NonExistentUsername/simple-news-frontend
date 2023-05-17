@@ -42,7 +42,7 @@ export function Profile() {
                 <h2>{user.username}</h2>
             </div>
             <p>{user.email}</p>
-            
+            <p>{ user.is_staff ? "Staff" : "Not staff" }</p>
         </Paper>
     );
 }
