@@ -1,6 +1,9 @@
-import { Grid, List, Typography } from "@material-ui/core";
+import { Grid, ListItem, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import Button from '@mui/material/Button';
+import List from '@mui/material/List';
 import Pagination from '@mui/material/Pagination';
+import Paper from '@mui/material/Paper';
 import React from "react";
 import { useLoaderData } from 'react-router-dom';
 import { AnonymousUser, ApiManager, getUser } from "../utils";
@@ -79,10 +82,21 @@ export function MyNews() {
 
     return (
         <div>
-            <List className={classes.news_headers}>
-                <Typography variant="h4">Your news</Typography>
-                <Typography variant="body2">News count: {news.count}</Typography>
-            </List>
+            <Paper style={{ marginTop: "20px", marginBottom: "20px", padding: "20px" }}>
+                <List>
+                    <ListItem>
+                        <Typography variant="h4">Your news</Typography>
+                    </ListItem>
+                    <ListItem>
+                        <Typography variant="body2">News count: {news.count}</Typography>
+                    </ListItem>
+                    <ListItem>
+                        <Button onClick={() => window.location.href = "/create-news/"}>
+                            Create news
+                        </Button>
+                    </ListItem>
+                </List>
+            </Paper>
             <div className={classes.news_list_container}>
                 <Grid container spacing={2} className={classes.news_list}>
                     {
