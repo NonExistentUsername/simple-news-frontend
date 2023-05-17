@@ -67,7 +67,7 @@ export class ApiManager {
       {
         method: "GET",
         headers: {
-          "Authorization": "Bearer " + token
+          "Authorization": "Token " + token
 
         }
       }
@@ -80,9 +80,11 @@ export class ApiManager {
 }
 
 export class User {
-  constructor(token = null, is_stuff = false) {
+  constructor(token = null, is_stuff = false, username = null, email = null) {
     this.token = token
     this._is_stuff = is_stuff
+    this.username = username
+    this.email = email
   }
 
   get is_authorized() {
@@ -112,7 +114,7 @@ export async function getUser() {
 
   if (token != null) {
     const _ = await apiManager.getMe(token).then((data) => {
-      user = new User(token, data.is_staff)
+      user = new User(token, data.is_staff, data.username, data.email)
     })
   }
   return user
