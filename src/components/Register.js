@@ -12,6 +12,7 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
 import { ApiManager } from "../utils";
+import Error from "./Error";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -37,6 +38,7 @@ let apiManager = new ApiManager();
 
 export default function Register() {
   const classes = useStyles();
+  const [non_field_errors, setNonFieldErrors] = React.useState("");
   const [username_error, setUsernameError] = React.useState("");
   const [password_error, setPasswordError] = React.useState("");
 
@@ -53,6 +55,9 @@ export default function Register() {
       }
       if(response.hasOwnProperty("password")) {
         setPasswordError(response.password);
+      }
+      if(response.hasOwnProperty("non_field_errors")) {
+        setNonFieldErrors(response.non_field_errors);
       }
     }
   }
@@ -76,10 +81,9 @@ export default function Register() {
         </Typography>
         <form className={classes.form} onSubmit={submitForm} noValidate>
           <Grid container spacing={2}>
+            <Error message={non_field_errors} />
+            <Error message={username_error} />
             <Grid item xs={12}>
-              <Typography variant="body2" color="error">
-                {username_error}
-              </Typography>
               <TextField
                 autoComplete="uname"
                 name="username"
@@ -91,9 +95,7 @@ export default function Register() {
                 autoFocus
               />
             </Grid>
-            <Typography variant="body2" color="error">
-              {password_error}
-            </Typography>
+            <Error message={password_error} />
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
